@@ -30,20 +30,14 @@ class TaskRepository implements IRepository
     {
         $task = Task::find($id);
 
-        if(!empty($task)){
+        $task->update($data);
 
-            $task->update($data);
-        }
         return $task;
     }
 
     public function delete($id)
     {
-        $task = Task::find($id);
-
-        if (!empty($task)) {
-            $task->delete();
-        }
+        Task::find($id)->delete();
     }
 
 }
