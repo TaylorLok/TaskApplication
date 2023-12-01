@@ -48,6 +48,9 @@ class TaskController extends Controller
     {
         $data = $request->all();
 
+        $task = $this->taskRepository->listTaskById($id);
+        $this->authorize('update', $task);
+
         $task = $this->taskRepository->edit($id, $data);
 
         if (!$task) {
