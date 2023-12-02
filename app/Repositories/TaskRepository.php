@@ -9,31 +9,25 @@ class TaskRepository implements IRepository
 
     public function allTasksForUser($userId)
     {
-        $tasks = Task::where('user_id', $userId)->get();
-
-        if (!$tasks) {
-            return response()->json(['message' => 'No tasks found for user ' . $tasks->user->name], 404);
-        }
-
-        return response()->json(['message' => 'All tasks found', 'tasks' => $tasks], 200);
+        return Task::where('user_id', $userId)->get();
     }
 
     public function listTaskById($id)
     {
         $task = Task::find($id);
 
-        if (!$task) {
-            return response()->json(['message' => 'No Task found for the given task Id: ' . $id], 404);
-        }
-
-        return response()->json(['message' => 'Task found', 'task' => $task], 200);
+        return  $task;
     }
 
     public function create($data)
     {
         $task = Task::create($data);
 
-        return response()->json(['message' => 'Task created successfully', 'task' => $task], 201);
+        if(!$task) {
+            return response()->json(['error' => 'Task not created'], 404);
+        }else{
+            return $task;
+        }
     }
 
     public function edit($id, $data)
@@ -46,20 +40,14 @@ class TaskRepository implements IRepository
 
         $task->update($data);
 
-        return response()->json(['message' => 'Task updated successfully', 'task' => $task], 200);
+        return $task;
     }
 
     public function delete($id)
     {
         $task = Task::find($id);
 
-        if (!$task) {
-            return response()->json(['error' => 'Task not found for the given id ' . $id], 404);
-        }
-
         $task->delete();
-
-        return response()->json(['message' => 'Task deleted successfully'], 204);
     }
 
 }
