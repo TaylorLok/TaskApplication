@@ -27,28 +27,29 @@ function Create({auth}) {
                             <div className='container w-[70%]'>
                                 <InputLabel htmlFor="title" value="Title"></InputLabel>
                                 <TextInput
-                        id="title"
-                        type="title"
-                        name="title"
-                        placeholder="Title"
-                        className="mt-1 block w-full p-2"
-                        value={data.title}
-                        onChange={e => setData('title', e.target.value)}
-                        isFocused={true} />
-                        <InputError message={errors.title} className="mt-2" />
+                                    id="title"
+                                    type="title"
+                                    name="title"
+                                    placeholder="Title"
+                                    className="mt-1 block w-full p-2"
+                                    value={data.title}
+                                    onChange={e => setData('title', e.target.value)}
+                                    isFocused={true}
+                                />
+                                <InputError message={errors.title} className="mt-2" />
                             </div>
                             <div className='container w-[70%]'>
                                 <InputLabel htmlFor="description" value="Description"></InputLabel>
                                 <TextInput
-                        id="description"
-                        type="description"
-                        name="description"
-                        placeholder="Description"
-                        className="mt-1 block w-full p-2"
-                        value={data.description}
-                        onChange={e => setData('description', e.target.value)}
-                        />
-                        <InputError message={errors.description} className="mt-2" />
+                                    id="description"
+                                    type="description"
+                                    name="description"
+                                    placeholder="Description"
+                                    className="mt-1 block w-full p-2"
+                                    value={data.description}
+                                    onChange={e => setData('description', e.target.value)}
+                                />
+                                <InputError message={errors.description} className="mt-2" />
                             </div>
                             <PrimaryButton disabled={processing}>Submit</PrimaryButton>
                         </form>
