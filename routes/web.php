@@ -5,7 +5,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\TaskController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,15 +25,34 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/register', function () {
+    return Inertia::render('Auth/Register');
+})->name('register');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+//Task Routes
+
+Route::get('/',[TaskController::class,'index'])->name("home")->middleware("auth");
+
+Route::get('/dashboard', [TaskController::class,'index'])->middleware(['auth'])->name('dashboard');
+
+Route::resource("/task",TaskController::class)->names([
+    "index"=>"tasks",
+    "create"=>"tasks.create",
+    "store"=>"tasks.store",
+    "show"=>"tasks.show",
+    "edit"=>"tasks.edit",
+    "update"=>"tasks.update",
+    "destroy"=>"tasks.destroy",
+])->middleware("auth");
+
+
 
 
 require __DIR__.'/auth.php';
