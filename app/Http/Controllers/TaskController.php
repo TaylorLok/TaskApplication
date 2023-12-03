@@ -37,15 +37,17 @@ class TaskController extends Controller
         ]);
     }
 
-    public function find($id)
+    public function show($id)
     {
         if(!$id) {
-            return redirect()->back()->with('error', 'Task not found');
+            return redirect()->route('home')->with('error', 'Task not found');
         }
-        $task = $this->taskRepository->listTaskById($id);
 
-        return redirect()->route('tasks')->with('success', 'Task updated successfully!');
+       $this->taskRepository->listTaskById($id);
+
+        return redirect()->route('home')->with('success', 'Task updated successfully!');
     }
+
 
     public function update(Request $request, $id)
     {
