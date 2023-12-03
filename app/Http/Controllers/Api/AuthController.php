@@ -64,6 +64,8 @@ class AuthController extends Controller
      */
     public function loginUser(Request $request)
     {
+        \Log::info($request);
+
         try {
             $validateUser = Validator::make(
                 $request->all(),
