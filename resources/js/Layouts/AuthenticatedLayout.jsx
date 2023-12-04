@@ -3,11 +3,13 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link,usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { ReactNotifications } from 'react-notifications-component'
 import { Store } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
 import 'animate.css/animate.min.css';
+import React, { useEffect } from 'react';
+
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
@@ -15,22 +17,22 @@ export default function Authenticated({ user, header, children }) {
     const { flash } = usePage().props
     useEffect(() => {
         if (flash.message) {
-          const notification = {
-            title: flash.type,
-            message: flash.message,
-            type: flash.type,
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animate__animated", "animate__fadeInRight"],
-            animationOut: ["animate__animated", "animate__zoomOut"],
-            dismiss: {
-              duration: 3000,
-              onScreen: true,
-            },
-          };
-          Store.addNotification(notification);
+            const notification = {
+                title: flash.type,
+                message: flash.message,
+                type: flash.type,
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animate__animated", "animate__fadeInRight"],
+                animationOut: ["animate__animated", "animate__zoomOut"],
+                dismiss: {
+                    duration: 3000,
+                    onScreen: true,
+                },
+            };
+            Store.addNotification(notification);
         }
-      }, [flash]);
+    }, [flash]);
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">

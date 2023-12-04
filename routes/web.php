@@ -44,12 +44,12 @@ Route::get('/dashboard', [TaskController::class,'index'])->middleware(['auth'])-
 
 Route::resource("/task",TaskController::class)->names([
     "index"=>"tasks",
-    "create"=>"tasks.create",
-    "store"=>"tasks.store",
-    "show"=>"tasks.show",
-    "edit"=>"tasks.edit",
-    "update"=>"tasks.update",
-    "destroy"=>"tasks.destroy",
+    "create"=>"task.create",
+    "store"=>"task.store",
+    "show"=>"task.show",
+    "edit"=>"task.edit",
+    "update"=>"task.update",
+    "destroy"=>"task.destroy",
 ])->middleware("auth");
 
 
