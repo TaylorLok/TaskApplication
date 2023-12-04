@@ -1,5 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import Index from './Task/Index';
 
 export default function Dashboard({ auth }) {
     return (
@@ -8,6 +9,8 @@ export default function Dashboard({ auth }) {
             header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Dashboard</h2>}
         >
             <Head title="Dashboard" />
+            {/* Change tasks to auth.user.tasks */}
+            <Index tasks={auth.user.tasks} />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">

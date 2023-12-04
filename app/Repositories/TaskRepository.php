@@ -16,24 +16,30 @@ class TaskRepository implements IRepository
     {
         $task = Task::find($id);
 
-        return $task;
+        return  $task;
     }
 
     public function create($data)
     {
         $task = Task::create($data);
 
-        return  $task;
+        if(!$task) {
+            return response()->json(['error' => 'Task not created'], 404);
+        }else{
+            return $task;
+        }
     }
 
     public function edit($id, $data)
     {
         $task = Task::find($id);
 
-        if(!empty($task)){
-
-            $task->update($data);
+        if (!$task) {
+            return response()->json(['error' => 'Task not found for task Id ' . $id], 404);
         }
+
+        $task->update($data);
+
         return $task;
     }
 
@@ -41,9 +47,7 @@ class TaskRepository implements IRepository
     {
         $task = Task::find($id);
 
-        if (!empty($task)) {
-            $task->delete();
-        }
+        $task->delete();
     }
 
 }

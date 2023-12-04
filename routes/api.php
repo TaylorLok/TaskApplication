@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\TaskController;
+use Inertia\Inertia;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,4 +18,31 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::middleware(['auth'])->get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->name('dashboard');
+
+
+Route::post('auth/register', [AuthController::class, 'createUser']);
+
+Route::post('auth/login', [AuthController::class, 'loginUser']);
+
+Route::middleware(['auth:sanctum'])->group(function () {
+
+    Route::get('/user-tasks', [TaskController::class, 'ListUserTask']);
+
+
+    Route::get('/task/{id}', [TaskController::class, 'show']);
+
+
+    Route::post('/task/create', [TaskController::class, 'store']);
+
+
+    Route::put('/task/update/{id}', [TaskController::class, 'update']);
+
+
+    Route::delete('/task/delete/{id}', [TaskController::class, 'delete']);
+
 });

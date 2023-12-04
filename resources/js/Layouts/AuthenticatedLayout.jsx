@@ -3,10 +3,36 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
+import { ReactNotifications } from 'react-notifications-component'
+import { Store } from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css'
+import 'animate.css/animate.min.css';
+import React, { useEffect } from 'react';
+
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+
+    const { flash } = usePage().props
+    useEffect(() => {
+        if (flash.message) {
+            const notification = {
+                title: flash.type,
+                message: flash.message,
+                type: flash.type,
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animate__animated", "animate__fadeInRight"],
+                animationOut: ["animate__animated", "animate__zoomOut"],
+                dismiss: {
+                    duration: 3000,
+                    onScreen: true,
+                },
+            };
+            Store.addNotification(notification);
+        }
+    }, [flash]);
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -23,6 +49,23 @@ export default function Authenticated({ user, header, children }) {
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
+                                </NavLink>
+                            </div>
+                        </div>
+
+                        <div className="flex">
+                            <div className="shrink-0 flex items-center">
+                                <Link href="/">
+                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                                </Link>
+                            </div>
+
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                    Todo
+                                </NavLink>
+                                <NavLink href={route('task.create')} active={route().current('task.create')}>
+                                    Create
                                 </NavLink>
                             </div>
                         </div>
